@@ -14,6 +14,7 @@ function App() {
 
   const handleChangeInputValue = (e) => {
     setInputValue(e.target.value);
+    
   }
 
   const handleAddGrocery = (e) => {
