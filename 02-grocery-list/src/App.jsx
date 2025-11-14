@@ -14,7 +14,7 @@ function App() {
 
   const handleChangeInputValue = (e) => {
     setInputValue(e.target.value);
-    
+    console.log('ciao simone prova di commit')
   }
 
   const handleAddGrocery = (e) => {
