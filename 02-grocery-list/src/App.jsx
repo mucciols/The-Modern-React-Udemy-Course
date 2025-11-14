@@ -12,13 +12,39 @@ function App() {
   const [inputValue, setInputValue] = useState("")
   const [groceryItems, setGroceryItems] = useState([]);
 
+
   const handleChangeInputValue = (e) => {
     setInputValue(e.target.value);
     console.log('ciao simone prova di commit')
   }
 
-  const handleAddGrocery = (e) => {
-    console.log('called',e);
+  const handleAddGroceryItem = (e) => {
+    console.log('pressed',e);
+
+    if(e.key === "Enter"){
+      if(inputValue) {
+        setGroceryItems([...groceryItems,{
+          quantity: 1,
+          name: inputValue,
+          completed: false
+        }])
+      }
+    }
+    
+  }
+
+  const renderGroceryList = () => {
+    return groceryItems.map((item)=>(
+      <li>
+          <div className='container'>
+            <input type="checkbox"/>
+            <p>{item.name}</p>
+          </div>
+          <div>
+            <button className='remove-button'>x</button>
+          </div>
+      </li>
+    ))
   }
 
   return (
@@ -38,21 +64,13 @@ function App() {
             className="item-input" 
             placeholder='add an item'
             onChange={handleChangeInputValue}
-            onKeyDown={handleAddGrocery}
+            onKeyDown={handleAddGroceryItem}
             value={inputValue}
             />
         </div>
       </div>
         <ul>
-          <li>
-            <div className='container'>
-              <input type="checkbox"/>
-              <p>Carrots</p>
-            </div>
-            <div>
-              <button className='remove-button'>x</button>
-            </div>
-          </li>
+          {renderGroceryList()}
         </ul>
       </div>
     </main>
