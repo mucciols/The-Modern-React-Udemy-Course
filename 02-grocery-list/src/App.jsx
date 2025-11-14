@@ -42,6 +42,7 @@ function App() {
           </div>
           <div>
             <button className='remove-button'>x</button>
+            altra modifica vediamo se funziona il merge
           </div>
       </li>
     ))
