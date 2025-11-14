@@ -15,12 +15,9 @@ function App() {
 
   const handleChangeInputValue = (e) => {
     setInputValue(e.target.value);
-    console.log('ciao simone prova di commit')
   }
 
   const handleAddGroceryItem = (e) => {
-    console.log('pressed',e);
-
     if(e.key === "Enter"){
       if(inputValue) {
         setGroceryItems([...groceryItems,{
@@ -30,7 +27,10 @@ function App() {
         }])
       }
     }
-    
+  }
+
+  const handleClickDelete = (e) => {
+    console.log('delete', e)
   }
 
   const renderGroceryList = () => {
@@ -41,8 +41,7 @@ function App() {
             <p>{item.name}</p>
           </div>
           <div>
-            <button className='remove-button'>x</button>
-            altra modifica vediamo se funziona il merge
+            <button onClick={() => handleClickDelete(item.name)} className='remove-button'>x</button>
           </div>
       </li>
     ))
