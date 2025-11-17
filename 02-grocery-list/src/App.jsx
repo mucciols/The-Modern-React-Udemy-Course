@@ -2,12 +2,6 @@ import './App.css'
 import groceryCartImg from './assets/grocery-cart.png'
 import { useState } from 'react'
 
-// {
-//     name:"Banama",
-//     quantity:1,
-//     comleted:true
-//   }
-
 function App() {
   const [inputValue, setInputValue] = useState("")
   const [groceryItems, setGroceryItems] = useState([]);
@@ -44,12 +38,22 @@ function App() {
     setGroceryItems(updatedGroceryList);
   }
 
+  const handleUpdateCompletedStatus = (status, index) => {
+    const updatedGroceryList = [...groceryItems];
+    updatedGroceryList[index].completed = status;
+    setGroceryItems(updatedGroceryList);
+  }
 
   const renderGroceryList = () => {
-    return groceryItems.map((item)=>(
+    return groceryItems.map((item, index)=>(
       <li key={item.name}>
           <div className='container'>
-            <input type="checkbox"/>
+            <input 
+              onChange={ (e) => handleUpdateCompletedStatus(e.target.checked, index)} 
+              type="checkbox" 
+              value={item.completed}
+              checked={item.completed}
+              />
             <p>{item.name} 
              { item.quantity > 1 ? <span>x {item.quantity}</span> : null  } 
             </p> 
@@ -65,8 +69,18 @@ function App() {
     <main className="App">
       <div>
         <div>
+        <button on></button>
         <h4 className='success'>You're done</h4>
-        <div className="header">
+        <div className="header" onClick={() => {
+          const updatedGroceryList = [...groceryItems].map(item=>{
+            return {
+              ...item,
+              completed: false
+            }
+          });
+          setGroceryItems(updatedGroceryList);
+        }
+        } >
           {inputValue}
           <button onClick={()=> {
             setInputValue("")
