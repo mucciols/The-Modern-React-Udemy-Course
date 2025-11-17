@@ -12,7 +12,6 @@ function App() {
   const [inputValue, setInputValue] = useState("")
   const [groceryItems, setGroceryItems] = useState([]);
 
-
   const handleChangeInputValue = (e) => {
     setInputValue(e.target.value);
   }
@@ -20,15 +19,7 @@ function App() {
   const handleAddGroceryItem = (e) => {
     if(e.key === "Enter"){
       if(inputValue) {
-        // setGroceryItems([
-        //   ...groceryItems,{
-        //   quantity: 1,
-        //   name: inputValue,
-        //   completed: false
-        // }])
-
         const updatedGroceryList = [...groceryItems]
-
         const itemIndex = updatedGroceryList.findIndex(x=>x.name === inputValue)
         if(itemIndex ===-1) {
           updatedGroceryList.push({
@@ -47,9 +38,12 @@ function App() {
     }
   }
 
-  const handleClickDelete = (e) => {
-    console.log('delete', e)
+  const handleRemoveItem = (name) => {
+    const updatedGroceryList = [...groceryItems].filter(i=>i.name !== name)
+    
+    setGroceryItems(updatedGroceryList);
   }
+
 
   const renderGroceryList = () => {
     return groceryItems.map((item)=>(
@@ -61,7 +55,7 @@ function App() {
             </p> 
           </div>
           <div>
-            <button onClick={() => handleClickDelete(item.name)} className='remove-button'>x</button>
+            <button onClick={ () => handleRemoveItem(item.name)} className='remove-button'>x</button>
           </div>
       </li>
     ))
