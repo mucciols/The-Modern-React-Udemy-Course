@@ -1,10 +1,16 @@
 import './App.css'
 import groceryCartImg from './assets/grocery-cart.png'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function App() {
   const [inputValue, setInputValue] = useState("")
   const [groceryItems, setGroceryItems] = useState([]);
+  const [isCompleted, setIsCompleted] = useState(false);
+
+  useEffect(() => {
+    determineCompletedStatus();
+    
+  },[groceryItems])
 
   const handleChangeInputValue = (e) => {
     setInputValue(e.target.value);
@@ -34,8 +40,21 @@ function App() {
 
   const handleRemoveItem = (name) => {
     const updatedGroceryList = [...groceryItems].filter(i=>i.name !== name)
-    
     setGroceryItems(updatedGroceryList);
+  }
+
+  const determineCompletedStatus = () => {
+    if(!groceryItems.length)
+      return setIsCompleted(false);
+
+    let isAllCompleted = true;
+
+    groceryItems.forEach(item => {
+      if(!item.completed)
+        isAllCompleted = false;
+    })
+
+    setIsCompleted(isAllCompleted);
   }
 
   const handleUpdateCompletedStatus = (status, index) => {
@@ -70,7 +89,11 @@ function App() {
       <div>
         <div>
         <button on></button>
-        <h4 className='success'>You're done</h4>
+        {
+          //si usa && nel caso in cui non ci sia null nel else
+          isCompleted && <h4 className='success'>You're done</h4>
+        }
+        
         <div className="header" onClick={() => {
           const updatedGroceryList = [...groceryItems].map(item=>{
             return {
