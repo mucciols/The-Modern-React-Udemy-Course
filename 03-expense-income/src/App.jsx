@@ -2,9 +2,20 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [statement, setStatement]  = useState("");
-  const [amount, setAmount]  = useState("");
-  const [statementType, setStatementType]  = useState("income");
+
+  const [input, setInput] = useState({
+    statement: "",
+    amount: "",
+    statementType: ""
+  })
+
+  const handleUpdateInput = (e) => {
+    console.log(e.target.name);
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value
+    })
+  }
 
   return (
     <main>
@@ -13,17 +24,19 @@ function App() {
         <div className="input-container">
           <input 
             type="text" placeholder="Inc. or exp." 
-            value={statement}
-            onChange={(e)=> setStatement(e.target.value) } />
+            value={input.statement}
+            onChange={handleUpdateInput}
+            name="statement"
+            />
           <input 
             type="number" placeholder="$5000" 
-            value={amount}
-            onChange={(e)=> setAmount(e.target.value) } />
-          <input type="number" />
-          <select onChange={(e)=>{
-            setStatement(e.target.value)
-          }}
-            value={statementType}
+            value={input.amount}
+            onChange={handleUpdateInput} 
+            name="amount"
+          />
+          <select onChange={handleUpdateInput}
+            value={input.statementType}
+            name="statementType"
           >
             <option value="income">Income</option>
             <option value="expense">Expense</option>
