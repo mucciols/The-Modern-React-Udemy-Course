@@ -20,11 +20,29 @@ function App() {
   const handleAddGroceryItem = (e) => {
     if(e.key === "Enter"){
       if(inputValue) {
-        setGroceryItems([...groceryItems,{
-          quantity: 1,
-          name: inputValue,
-          completed: false
-        }])
+        // setGroceryItems([
+        //   ...groceryItems,{
+        //   quantity: 1,
+        //   name: inputValue,
+        //   completed: false
+        // }])
+
+        const updatedGroceryList = [...groceryItems]
+
+        const itemIndex = updatedGroceryList.findIndex(x=>x.name === inputValue)
+        if(itemIndex ===-1) {
+          updatedGroceryList.push({
+            name : inputValue,
+            quantity : 1,
+            completed: false
+          })
+        }
+        else {
+          updatedGroceryList[itemIndex].quantity++
+        }
+
+        setGroceryItems(updatedGroceryList);
+        setInputValue("");
       }
     }
   }
@@ -35,10 +53,12 @@ function App() {
 
   const renderGroceryList = () => {
     return groceryItems.map((item)=>(
-      <li>
+      <li key={item.name}>
           <div className='container'>
             <input type="checkbox"/>
-            <p>{item.name}</p>
+            <p>{item.name} 
+             { item.quantity > 1 ? <span>x {item.quantity}</span> : null  } 
+            </p> 
           </div>
           <div>
             <button onClick={() => handleClickDelete(item.name)} className='remove-button'>x</button>
