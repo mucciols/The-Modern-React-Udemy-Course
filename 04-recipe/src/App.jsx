@@ -30,8 +30,6 @@ function App() {
             <img src="https://hips.hearstapps.com/hmg-prod/images/how-to-make-french-toast-1589827448.jpg?crop=0.734xw:0.490xh;0.0897xw,0.323xh&resize=1200:*" alt=""  className="main_img"/>
           </div>
         </header>
-
-
         <section className="cards">
           <div className="card">
             <img src="https://therecipecritic.com/wp-content/uploads/2022/01/hawaiianpokebowls.jpg" alt="" />
