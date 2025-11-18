@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid'
 import "./App.css";
 
@@ -10,10 +10,32 @@ function App() {
     amount: "",
     statementType: "income"
   })
+  
   const[showError, setShowError] = useState({
     statement: false,
     amount:false
   })
+
+  const [total, setTotal] = useState(0);
+
+  useEffect(()=>{
+    const newTotal = statements.reduce((sum, {statementType, amount}) => {
+      if(statementType ==='expense') 
+          return sum - parseFloat(amount);
+      else 
+          return sum + parseFloat(amount);
+     }, 0 )
+    setTotal(newTotal);
+  },[statements])
+
+  const renderTotal = () => {
+    if(total > 0)
+      return <h1 className="tltal-text success">+{Math.abs(total)}</h1>
+    else if(total < 0)
+      return <h1 className="tltal-text danger">-{Math.abs(total)}</h1>
+    else
+      return <h1 className="tltal-text">{Math.abs(total)}</h1>
+  }
 
   const handleUpdateInput = (e) => {
     console.log(e.target.name);
@@ -24,11 +46,7 @@ function App() {
   }
 
   const handleAddNewStatement = () => {
-
     const { statement, amount } = input;
-
-    console.log(input)
-
     if(!statement) {
       return setShowError({
         statement: true,
@@ -58,7 +76,7 @@ function App() {
   return (
     <main>
       <div>
-        <h1 className="total-text">0</h1>
+        <h1 className="total-text">{renderTotal()}</h1>
         <div className="input-container">
           <input 
             type="text" placeholder="Inc. or exp." 
