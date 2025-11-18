@@ -2,10 +2,12 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
+  const [statements, setStatements] = useState([])
+
   const [input, setInput] = useState({
     statement: "",
     amount: "",
-    statementType: ""
+    statementType: "income"
   })
   const[showError, setShowError] = useState({
     statement: false,
@@ -22,27 +24,32 @@ function App() {
 
   const handleAddNewStatement = () => {
 
-    console.log('handle statement');
-
     const { statement, amount } = input;
+
+    console.log(input)
 
     if(!statement) {
       return setShowError({
         statement: true,
         amount: false
       })
-    }
-    else if(!amount) {
+    } else if(!amount) {
       return setShowError({
         statement: false,
         amount: true
       })
-    } 
-    else {
-      return setShowError({
+    } else {
+      setShowError({
         statement: false,
         amount: false
-      })
+      });
+
+      setStatements([...statements,{
+        name: statement,
+        amount: parseFloat(amount).toFixed(2),
+        statementType: input.statementType,
+        date: new Date().toDateString(),
+      }])
     }
   }
 
@@ -77,13 +84,17 @@ function App() {
           <button onClick={()=>handleAddNewStatement()}>+</button>
         </div>
         <div>
-          <div className="card">
-            <div className="card-info">
-              <h4>Salary</h4>
-              <p>July 27th, 2024</p>
+         {statements.map( ({name, statementType, amount, date}) => (
+            <div className="card" key={name}>
+              <div className="card-info">
+                <h4>{name} - {statementType}</h4>
+                <p>{date}</p>
+              </div>
+              <p className={`amount-text ${statementType ==='income' ? 'success' : 'danger'}`}>
+                {statementType === 'income' ? '+' : '-'}
+                ${amount}</p>
             </div>
-            <p className="amount-text success">+$5000</p>
-          </div>
+         ))}
         </div>
       </div>
     </main>
