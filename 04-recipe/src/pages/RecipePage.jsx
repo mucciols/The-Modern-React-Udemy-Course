@@ -5,29 +5,22 @@ import useFetchRecipe from "../hooks/useFetchRecipe";
 import Loading from "../components/Loading";
 import RecipeInfo from "../components/RecipeInfo";
 import Error from "../components/Error";
-import { recipes } from "../components/CardList";
-// import { recipes } from "../components/CardList";
-
-export default function RecipePage() {
-  const { id } = useParams();
-
-  const recipe = recipes.find((recipe) => recipe.id === Number(id));
 
 
-  console.log(id, 2);
-  
 
-  //const { id } = useParams();
+// eslint-disable-next-line react/prop-types
+export default function RecipePage({recipe}) {
+  // const { id } = useParams();
+  // const recipe = recipes.find((recipe) => recipe.id === Number(id));
+  // console.log(id, 2);
+  // const { id } = useParams();
   // const [fetchRecipe, { data, loading, error }] = useFetchRecipe();
-
   // useEffect(() => {
   //   fetchRecipe(id);
   // }, []);
-
   // if (loading) return <Loading />;
   // if (error) return <h1>{error}</h1>;
   // if (data?.errors) return <Error explanation="Recipe not found" />;
-
   //console.log(data);
   return (
     // <div>

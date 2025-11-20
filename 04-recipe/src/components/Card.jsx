@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
+
 export default function Card({recipe}) {
 
-  const { image, name, tag, numberOfMinutes, id } = recipe
+  const { thumbnail_url, name, tag, numberOfMinutes, id } = recipe
 
   // const { thumbnail_url, name, topics, total_time_minutes, id } = recipe;
   // const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function Card({recipe}) {
     // </div>
 
     <div className="card" onClick={navigateToRecipePage}>
-      <img src={image} alt="" />
+      <img src={thumbnail_url} alt="" />
       <div className="card-content">
         <h3>
           {name}
