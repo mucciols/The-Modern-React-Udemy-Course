@@ -11,6 +11,7 @@ import AboutPage from "./pages/AboutPage";
 import HomePage from "./pages/HomePage";
 // import RecipePage from "./pages/RecipePage";
 import "./index.css";
+import RecipePage from "./pages/RecipePage.jsx";
 // import ErrorPage from "./pages/ErrorPage.jsx";
 // import Ingredients from "./components/Ingredient.jsx";
 // import Instructions from "./components/Instruction.jsx";
@@ -27,7 +28,9 @@ const router = createBrowserRouter(
     // </Route>
     <Route path="/" element={<App/>} >
       <Route path="/" element={<HomePage/>} />
-      <Route path="/About" element={<AboutPage /> } />
+      <Route path="/about" element={<AboutPage /> } />
+      <Route path="/recipe/:id" element={<RecipePage />} />
+
     </Route>
   )
 );
