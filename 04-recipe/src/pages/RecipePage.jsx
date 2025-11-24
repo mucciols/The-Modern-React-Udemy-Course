@@ -4,6 +4,7 @@
 
 import useFetchRecipe from "../hooks/useFetchRecipe";
 import { useParams } from "react-router-dom";
+import RecipeHeader from "../components/RecipeHeader";
 // import Loading from "../components/Loading";
 // import RecipeInfo from "../components/RecipeInfo";
 // import Error from "../components/Error";
@@ -51,7 +52,9 @@ export default function RecipePage() {
     // </div>
     <div>
 
-      {/* <h1>{recipe}</h1> */}
+      <RecipeHeader  />
+
+      
     </div>
   );
 }
