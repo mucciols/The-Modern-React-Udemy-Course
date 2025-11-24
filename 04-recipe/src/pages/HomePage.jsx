@@ -5,7 +5,7 @@ import useFetchRecipes from "../hooks/useFetchRecipes";
 
 export default function HomePage() {
 
-	const [data, loading] = useFetchRecipes()
+	const [data, loading, error] = useFetchRecipes()
 
   //const [fetchRecipes, { data, loading, error }] = useFetchRecipes();
   // const [searchParams] = useSearchParams();
@@ -31,7 +31,7 @@ export default function HomePage() {
       <Header />
 			{loading && <Loading />}
 			{data && < CardList recipes={data}/>}
-      
+      {error && <p>{error}</p>}
     </>
   );
 }

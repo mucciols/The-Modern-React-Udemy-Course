@@ -16,24 +16,28 @@ const options = {
 const useFetchRecipes = () => {
 	const [recipes, setRecepies] = useState(null);
 	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(null)
 
 	useEffect(() => {
     fetchRecipes();
   }, []);
 
 	const fetchRecipes = async () => {
-		setLoading(true)
+		setLoading(true);
+		setRecepies(null);
+		setError(null);
 		try {
 			const response = await axios.get("https://tasty.p.rapidapi.com/recipes/list",options);
 			setRecepies(response.data.results);
 			setLoading(false);
 		} catch (error) {
 			console.error("Errore chiamata API:", error);
+			setError(error.message);
 			setLoading(false);
 		}
 	};
 
-	return [recipes, loading];
+	return [recipes, loading, error];
 }
 
 
