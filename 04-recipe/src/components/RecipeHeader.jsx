@@ -6,7 +6,7 @@ import { IoFishOutline } from "react-icons/io5";
 
 
 //export default function RecipeHeader({ nutritionalFacts, name }) {
-export default function RecipeHeader({ nutritionalFacts }) {
+export default function RecipeHeader({ nutritionalFacts, name }) {
   const nutritionalFactsArray = [
     {
       id: 1,
@@ -40,15 +40,13 @@ export default function RecipeHeader({ nutritionalFacts }) {
     },
   ];
 
-  
-
   return (
     <div className="recipe-header">
-      <h1>nome</h1>
+      <h1>{name}</h1>
       <RecipeNutritionalFact></RecipeNutritionalFact>
       <div className="nutritional-facts-container">
-        {nutritionalFactsArray.map(({ Icon, id, amount, category }) => (
-          <RecipeNutritionalFact fact={{ amount, category }} key={id}>
+        {nutritionalFactsArray.map(({ Icon, id, amount, category, image }) => (
+          <RecipeNutritionalFact fact={{ amount, category, image }} key={id}>
             <Icon />
           </RecipeNutritionalFact>
         ))}

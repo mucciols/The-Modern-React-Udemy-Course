@@ -6,6 +6,7 @@ import useFetchRecipe from "../hooks/useFetchRecipe";
 import { useParams } from "react-router-dom";
 import RecipeHeader from "../components/RecipeHeader";
 import Loading from "../components/Loading";
+import RecipeInfo from "../components/RecipeInfo";
 // import Loading from "../components/Loading";
 // import RecipeInfo from "../components/RecipeInfo";
 // import Error from "../components/Error";
@@ -21,8 +22,6 @@ export default function RecipePage() {
     fetchRecipe(id)
   },[])
 
-  console.log({ data ,loading, error });
-
   // const recipe = recipes.find((recipe) => recipe.id === Number(id));
   // console.log(id, 2);
   // const { id } = useParams();
@@ -33,8 +32,7 @@ export default function RecipePage() {
   // if (loading) return <Loading />;
   // if (error) return <h1>{error}</h1>;
   // if (data?.errors) return <Error explanation="Recipe not found" />;
-  //console.log(data);
-
+  
   
   if(loading)
     return <Loading />
@@ -56,7 +54,9 @@ export default function RecipePage() {
     <div>
       { data && 
         <>
-          <RecipeHeader nutritionalFacts={data.nutrition} /> 
+          <RecipeHeader nutritionalFacts={data.nutrition} name={data.name}/> 
+          <RecipeInfo instructions={data.instructions} image={data.thumbnail_url}/>
+          {/* { data.instructions} */}
         </>
       }
       
