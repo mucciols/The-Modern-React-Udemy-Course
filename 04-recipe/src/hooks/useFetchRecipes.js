@@ -1,11 +1,11 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const options = {
             params: {
               from: "0",
               size: "20",
-              tags: "under_30_minutes",
+              //tags: "under_30_minutes"
             },
             headers: {
               "x-rapidapi-key": "f6fa45d237msh97850375b9c7cf6p1dddcfjsnf5cdbb7f0f73",
@@ -18,16 +18,20 @@ const useFetchRecipes = () => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null)
 
-	useEffect(() => {
-    fetchRecipes();
-  }, []);
+	// useEffect(() => {
+  //   fetchRecipes();
+  // }, []);
 
-	const fetchRecipes = async () => {
+	const fetchRecipes = async (searchTerm) => {
 		setLoading(true);
 		setRecepies(null);
 		setError(null);
 		try {
-			const response = await axios.get("https://tasty.p.rapidapi.com/recipes/list",options);
+			const reqOptions = { ...options }
+			if (searchTerm) {
+				reqOptions.params.q =  searchTerm
+			}
+			const response = await axios.get("https://tasty.p.rapidapi.com/recipes/list",reqOptions);
 			setRecepies(response.data.results);
 			setLoading(false);
 		} catch (error) {
@@ -37,7 +41,7 @@ const useFetchRecipes = () => {
 		}
 	};
 
-	return [recipes, loading, error];
+	return [fetchRecipes, {data: recipes, loading, error}];
 }
 
 
