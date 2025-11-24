@@ -1,18 +1,12 @@
 import { useState } from "react";
-// import { useSearchParams } from "react-router-dom";
 
-import useFetchRecipes from "../hooks/useFetchRecipes";
-
-// function Header({ handleSearch }) {
-function Header() {
+function Header({handleSearch}) {
   const [searchTerm, setSearchTerm] = useState("");
-	const [fetchRecipes] = useFetchRecipes()
 
-	const handleSearch = () => {
-		if(searchTerm) {
-			fetchRecipes(searchTerm);
-		}
-	}
+  const handleClick = () => {
+    handleSearch(searchTerm)
+    setSearchTerm("");
+  }
 
   // const [_, setSearchParams] = useSearchParams();
   // const handleClick = () => {
@@ -69,7 +63,7 @@ function Header() {
 							placeholder="Find a recipee" 
 							onChange={(e)=>setSearchTerm(e.target.value) } 
 							value={searchTerm}/>
-            <button onClick={handleSearch }>Search</button>
+            <button onClick={ handleClick }>Search</button>
           </div>
         </div>
         <div>

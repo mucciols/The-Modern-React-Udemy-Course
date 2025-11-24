@@ -24,6 +24,12 @@ export default function HomePage() {
     fetchRecipes();
   }, []);
 
+  const handleSearch = (searchTerm) => {
+		if(searchTerm) {
+			fetchRecipes(searchTerm);
+		}
+	}
+
   return (
     // <>
     //   <Header handleSearch={handleSearch} />
@@ -33,7 +39,7 @@ export default function HomePage() {
     // </>
     <>
 		
-      <Header />
+      <Header handleSearch={handleSearch}/>
 			{loading && <Loading />}
 			{data && < CardList recipes={data}/>}
       {error && <p>{error}</p>}
