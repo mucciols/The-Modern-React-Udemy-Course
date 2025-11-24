@@ -74,7 +74,7 @@
 // export default useFetchRecipe;
 
 import axios from 'axios'
-import { useState } from "react";
+import { useState, useReducer } from "react";
 
 const options = {
             params: {
@@ -88,36 +88,60 @@ const options = {
             },
 }
 
+const initialState = {
+	data: null,
+	loading: false,
+	error: null
+}
+
+const Actions = {
+	FETCHING_DATA : "FETCHING_DATA",
+	FETCH_SUCCESSFUL : "FETCH_SUCCESSFUL",
+	FETCH_ERROR : "FETCH_ERROR",
+}
+
+const reducer = (_, action) => {
+	switch (action.type) {
+		case Actions.FETCHING_DATA:
+			return {
+				data: null,
+				error: null,
+				loading: true
+			}
+		case Actions.FETCH_SUCCESSFUL:
+			return {
+				data: action.payload,
+				error: false,
+				loading: false
+			}
+		case Actions.FETCH_ERROR:
+			return {
+				data: null,
+				error: action.payload,
+				loading: false
+			}
+		default: 
+			return initialState;
+	}
+}
 
 const useFetchRecipe = () => {
-  const [recipe, setRecipe] = useState(null);
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(null)
-
-	// useEffect(() => {
-  //   fetchRecipes();
-  // }, []);
+	const [{ data, loading, error }, dispatch] = useReducer (reducer, initialState)
 
 	const fetchRecipe = async (id) => {
-		setLoading(true);
-		setRecipe(null);
-		setError(null);
+		dispatch({type: Actions.FETCHING_DATA})
+
 		try {
 			const reqOptions = { ...options }
-			
 			reqOptions.params.q =  id
-			
 			const response = await axios.get("https://tasty.p.rapidapi.com/recipes/get-more-info?id=8138",reqOptions);
-			setRecipe(response.data);
-			setLoading(false);
+			dispatch({type: Actions.FETCH_SUCCESSFUL, payload: response.data})
 		} catch (error) {
-			console.error("Errore chiamata API:", error);
-			setError(error.message);
-			setLoading(false);
+			dispatch({type: Actions.FETCH_ERROR, payload: error.message})
 		}
 	};
 
-	return [fetchRecipe, {data: recipe, loading, error}];
+	return [fetchRecipe, {data , loading, error}];
 }
 
 export default useFetchRecipe;
