@@ -1,12 +1,13 @@
 // export default function RecipeNutritionalFact({ fact, children }) {
-export default function RecipeNutritionalFact({ fact }) {
+export default function RecipeNutritionalFact({ fact, children }) {
+
 
   if(!fact)
     return <></>
   
   return (
     <div className="recipe-fact-container">
-      {/* {children}*/}
+      {children}
       <h3>{fact.amount}</h3>
       <p> {fact.category}</p> 
     </div>

@@ -4,6 +4,7 @@ import { CiWheat } from "react-icons/ci";
 import { BiCheese, BiCake } from "react-icons/bi";
 import { IoFishOutline } from "react-icons/io5";
 
+
 //export default function RecipeHeader({ nutritionalFacts, name }) {
 export default function RecipeHeader({ nutritionalFacts }) {
   const nutritionalFactsArray = [
