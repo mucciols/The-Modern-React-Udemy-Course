@@ -22,35 +22,11 @@ export default function RecipePage() {
     fetchRecipe(id)
   },[])
 
-  // const recipe = recipes.find((recipe) => recipe.id === Number(id));
-  // console.log(id, 2);
-  // const { id } = useParams();
-  // const [fetchRecipe, { data, loading, error }] = useFetchRecipe();
-  // useEffect(() => {
-  //   fetchRecipe(id);
-  // }, []);
-  // if (loading) return <Loading />;
-  // if (error) return <h1>{error}</h1>;
-  // if (data?.errors) return <Error explanation="Recipe not found" />;
-  
-  
   if(loading)
     return <Loading />
   if(error)
     return <h1>{error}</h1>
   return (
-    // <div>
-    //   {data && (
-    //     <>
-    //       <RecipeHeader nutritionalFacts={data.nutrition} name={data.name} />
-    //       <RecipeInfo
-    //         instructions={data.instructions}
-    //         image={data.thumbnail_url}
-    //         ingredients={data.sections[0].components}
-    //       />
-    //     </>
-    //   )}
-    // </div>
     <div>
       { data && 
         <>
@@ -59,9 +35,6 @@ export default function RecipePage() {
           {/* { data.instructions} */}
         </>
       }
-      
-
-      
     </div>
   );
 }
