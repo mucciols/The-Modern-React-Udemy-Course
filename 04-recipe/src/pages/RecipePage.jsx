@@ -1,16 +1,26 @@
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import RecipeHeader from "../components/RecipeHeader";
+ import { useEffect } from "react";
+
+// import RecipeHeader from "../components/RecipeHeader";
+
 import useFetchRecipe from "../hooks/useFetchRecipe";
-import Loading from "../components/Loading";
-import RecipeInfo from "../components/RecipeInfo";
-import Error from "../components/Error";
+import { useParams } from "react-router-dom";
+// import Loading from "../components/Loading";
+// import RecipeInfo from "../components/RecipeInfo";
+// import Error from "../components/Error";
 
 
 
 // eslint-disable-next-line react/prop-types
-export default function RecipePage({recipe}) {
-  // const { id } = useParams();
+export default function RecipePage() {
+  const { id } = useParams();
+  const [fetchRecipe, { data , loading, error }] = useFetchRecipe()
+
+  useEffect(()=>{
+    fetchRecipe(id)
+  },[])
+
+  console.log({ data ,loading, error });
+
   // const recipe = recipes.find((recipe) => recipe.id === Number(id));
   // console.log(id, 2);
   // const { id } = useParams();
@@ -22,6 +32,10 @@ export default function RecipePage({recipe}) {
   // if (error) return <h1>{error}</h1>;
   // if (data?.errors) return <Error explanation="Recipe not found" />;
   //console.log(data);
+
+  
+  
+
   return (
     // <div>
     //   {data && (
@@ -36,7 +50,8 @@ export default function RecipePage({recipe}) {
     //   )}
     // </div>
     <div>
-      <h1>{recipe.name}</h1>
+
+      {/* <h1>{recipe}</h1> */}
     </div>
   );
 }
