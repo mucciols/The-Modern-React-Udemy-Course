@@ -1,43 +1,68 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const options = {
-  method: "GET",
-  url: "https://tasty.p.rapidapi.com/recipes/list",
-  params: {
-    from: "0",
-    size: "20",
-  },
-  headers: {
-    "X-RapidAPI-Key": "30b594a022mshc657030b09147dcp153ad1jsn8b9a863a5527",
-    "X-RapidAPI-Host": "tasty.p.rapidapi.com",
-  },
-};
+            params: {
+              from: "0",
+              size: "20",
+              tags: "under_30_minutes",
+            },
+            headers: {
+              "x-rapidapi-key": "f6fa45d237msh97850375b9c7cf6p1dddcfjsnf5cdbb7f0f73",
+              "x-rapidapi-host": "tasty.p.rapidapi.com",
+            },
+}
 
 const useFetchRecipes = () => {
-  const [recipes, setRecipes] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+	const [recipes, setRecepies] = useState([]);
 
-  const fetchRecipes = async (searchTerm) => {
-    setLoading(true);
-    setRecipes(null);
-    setError(null);
-    try {
-      const reqOptions = { ...options };
-      if (searchTerm) {
-        reqOptions.params.q = searchTerm;
-      }
-      const response = await axios.request(reqOptions);
-      setRecipes(response.data.results);
-      setLoading(false);
-    } catch (err) {
-      setError(err.message);
-      setLoading(false);
-    }
-  };
+	useEffect(() => {
+    fetchRecipes();
+  }, []);
 
-  return [fetchRecipes, { data: recipes, loading, error }];
-};
+	const fetchRecipes = async () => {
+	
+		try {
+			const response = await axios.get(
+				"https://tasty.p.rapidapi.com/recipes/list",
+					options
+			);
+			setRecepies(response.data.results);
+		} catch (error) {
+			console.error("Errore chiamata API:", error);
+		}
+	};
+
+	return [recipes];
+}
+
+
+
+
+// const useFetchRecipes = () => {
+//   const [recipes, setRecipes] = useState(null);
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState(null);
+
+//   const fetchRecipes = async (searchTerm) => {
+//     setLoading(true);
+//     setRecipes(null);
+//     setError(null);
+//     try {
+//       const reqOptions = { ...options };
+//       if (searchTerm) {
+//         reqOptions.params.q = searchTerm;
+//       }
+//       const response = await axios.request(reqOptions);
+//       setRecipes(response.data.results);
+//       setLoading(false);
+//     } catch (err) {
+//       setError(err.message);
+//       setLoading(false);
+//     }
+//   };
+
+//   return [fetchRecipes, { data: recipes, loading, error }];
+// };
 
 export default useFetchRecipes;
