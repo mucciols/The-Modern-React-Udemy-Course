@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import RecipeHeader from "../components/RecipeHeader";
 import Loading from "../components/Loading";
 import RecipeInfo from "../components/RecipeInfo";
+import Error from "../components/Error";
 // import Loading from "../components/Loading";
 // import RecipeInfo from "../components/RecipeInfo";
 // import Error from "../components/Error";
@@ -22,10 +23,15 @@ export default function RecipePage() {
     fetchRecipe(id)
   },[])
 
-  if(loading)
-    return <Loading />
-  if(error)
-    return <h1>{error}</h1>
+
+  console.log('errori',data);
+  
+
+  if(loading)     return <Loading />
+  if(error)       return <h1>{error}</h1>
+  if(data?.errors) return <Error explanation="Recipe not found" ></Error>
+
+
   return (
     <div>
       { data && 

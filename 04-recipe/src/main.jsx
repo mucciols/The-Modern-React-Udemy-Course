@@ -12,6 +12,7 @@ import HomePage from "./pages/HomePage";
 // import RecipePage from "./pages/RecipePage";
 import "./index.css";
 import RecipePage from "./pages/RecipePage.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
 // import ErrorPage from "./pages/ErrorPage.jsx";
 // import Ingredients from "./components/Ingredient.jsx";
 // import Instructions from "./components/Instruction.jsx";
@@ -26,7 +27,7 @@ const router = createBrowserRouter(
     //     <Route path="/recipe/:id/instructions" element={<Instructions />} />
     //   </Route>
     // </Route>
-    <Route path="/" element={<App/>} >
+    <Route path="/" element={<App/>} errorElement={ <ErrorPage /> }>
       <Route path="/" element={<HomePage/>} />
       <Route path="/about" element={<AboutPage /> } />
       <Route path="/recipe/:id" element={<RecipePage />} />

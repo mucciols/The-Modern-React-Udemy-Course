@@ -133,10 +133,15 @@ const useFetchRecipe = () => {
 
 		try {
 			const reqOptions = { ...options }
+			//console.log('opzioni:', reqOptions);
 			reqOptions.params.q =  id
-			const response = await axios.get("https://tasty.p.rapidapi.com/recipes/get-more-info?id=8138",reqOptions);
+			const response = await axios.get("https://tasty.p.rapidapi.com/recipes/get-more-info?id="+id,reqOptions);
 			dispatch({type: Actions.FETCH_SUCCESSFUL, payload: response.data})
+			//console.log("dati caricati", response)
+			if(response.data==="")
+				dispatch({type: Actions.FETCH_ERROR, payload: "No Data Loaded"})
 		} catch (error) {
+			//console.log('errori caricamento', error)
 			dispatch({type: Actions.FETCH_ERROR, payload: error.message})
 		}
 	};
