@@ -1,5 +1,4 @@
  import { useEffect } from "react";
-
 // import RecipeHeader from "../components/RecipeHeader";
 
 import useFetchRecipe from "../hooks/useFetchRecipe";
@@ -12,8 +11,6 @@ import Error from "../components/Error";
 // import RecipeInfo from "../components/RecipeInfo";
 // import Error from "../components/Error";
 
-
-
 // eslint-disable-next-line react/prop-types
 export default function RecipePage() {
   const { id } = useParams();
@@ -23,21 +20,23 @@ export default function RecipePage() {
     fetchRecipe(id)
   },[])
 
-
-  console.log('errori',data);
-  
-
-  if(loading)     return <Loading />
-  if(error)       return <h1>{error}</h1>
-  if(data?.errors) return <Error explanation="Recipe not found" ></Error>
-
+  if(loading)     
+    return <Loading />
+  if(error)       
+    return <h1>{error}</h1>
+  if(data?.errors) 
+    return <Error explanation="Recipe not found" ></Error>
 
   return (
     <div>
       { data && 
         <>
           <RecipeHeader nutritionalFacts={data.nutrition} name={data.name}/> 
-          <RecipeInfo instructions={data.instructions} image={data.thumbnail_url}/>
+          <RecipeInfo 
+            instructions={data.instructions} 
+            image={data.thumbnail_url}
+            ingredients={data.sections[0].components} 
+            />
           {/* { data.instructions} */}
         </>
       }

@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-export default function RecipeInfo({ instructions, image }) {
+export default function RecipeInfo({ instructions, image, ingredients }) {
 
   if(!instructions)
     return;
@@ -18,7 +18,7 @@ export default function RecipeInfo({ instructions, image }) {
           <p className="recipe-text">{display_text}</p>
         </div>
       ))} */}
-      <Outlet context={{instructions}}/>
+      <Outlet context={{instructions, ingredients}}/>
       <img className="recipe-img" src={image} />
     </div>
   );
