@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import {
   RouterProvider,
@@ -30,8 +29,10 @@ const router = createBrowserRouter(
     <Route path="/" element={<App/>} errorElement={ <ErrorPage /> }>
       <Route path="/" element={<HomePage/>} />
       <Route path="/about" element={<AboutPage /> } />
-      <Route path="/recipe/:id" element={<RecipePage />} />
-
+      <Route path="/recipe/:id" element={<RecipePage />}>
+        <Route path="/recipe/:id/ingredients" element={ <h1>Ingredients</h1> }/>
+        <Route path="/recipe/:id/instructions" element={ <h1>Instructions</h1> } />
+      </Route>
     </Route>
   )
 );
