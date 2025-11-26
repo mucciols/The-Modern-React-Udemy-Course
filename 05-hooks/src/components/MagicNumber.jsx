@@ -1,6 +1,6 @@
 // import { useState, useRef } from "react";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 // export default function MagicNumber() {
 //   const magicNumber = 5;
@@ -42,34 +42,35 @@ export default function MagicNumber() {
   const magicNumber = 5;
   const secondMagicNumber = 10;
 
+  console.log('The component is rerendering');
+
   const [messages, setMessages] = useState({
     p: '',
     button: 'Click me until'
   });
 
-  const [count, setCount] = useState(0);
+  const count = useRef(0);
 
   const handleClick = () => {
-    const newCount = count +1;
+    count.current = count.current + 1;
 
-    if(newCount === magicNumber) {
+    console.log(count.current)
+
+    if(count.current === magicNumber) {
       setMessages({
         p : 'You Reached It',
         button: 'Clik until you reached the second magic number'
       })
-    } else if(newCount === secondMagicNumber) {
+    } else if(count.current === secondMagicNumber) {
       setMessages({
         p : 'You Reached it Again',
         button: 'Stop Clicking me'
       })
     }
-
-    setCount(newCount);
   }
 
   return (
     <div>
-      <p>{count}</p>
       <p>{ messages.p && messages.p}</p>
 
       <button onClick={handleClick} >{messages.button}</button>
