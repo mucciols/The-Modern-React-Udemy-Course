@@ -14,8 +14,8 @@ function App() {
       {/* <MagicNumber /> */}
       {/* <SignUpToNewsLetter /> */}
       {/* <MemoHook /> */}
-      <Parent />
-      {/* <List /> */}
+      {/* <Parent /> */}
+      <List />
     </>
   );
 }
