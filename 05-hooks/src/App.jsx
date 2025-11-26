@@ -13,8 +13,8 @@ function App() {
     <>
       {/* <MagicNumber /> */}
       {/* <SignUpToNewsLetter /> */}
-      <MemoHook />
-      {/* <Parent /> */}
+      {/* <MemoHook /> */}
+      <Parent />
       {/* <List /> */}
     </>
   );
