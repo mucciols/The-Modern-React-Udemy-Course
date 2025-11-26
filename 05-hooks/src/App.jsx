@@ -12,8 +12,8 @@ function App() {
   return (
     <>
       {/* <MagicNumber /> */}
-      <SignUpToNewsLetter />
-      {/* <MemoHook /> */}
+      {/* <SignUpToNewsLetter /> */}
+      <MemoHook />
       {/* <Parent /> */}
       {/* <List /> */}
     </>
