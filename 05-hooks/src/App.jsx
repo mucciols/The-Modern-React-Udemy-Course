@@ -11,11 +11,11 @@ import List from "./components/Zoo/List";
 function App() {
   return (
     <>
-      {/* <MagicNumber /> */}
+      <MagicNumber />
       {/* <SignUpToNewsLetter /> */}
       {/* <MemoHook /> */}
       {/* <Parent /> */}
-      <List />
+      {/* <List /> */}
     </>
   );
 }
