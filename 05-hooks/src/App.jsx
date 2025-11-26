@@ -11,8 +11,8 @@ import List from "./components/Zoo/List";
 function App() {
   return (
     <>
-      <MagicNumber />
-      {/* <SignUpToNewsLetter /> */}
+      {/* <MagicNumber /> */}
+      <SignUpToNewsLetter />
       {/* <MemoHook /> */}
       {/* <Parent /> */}
       {/* <List /> */}
