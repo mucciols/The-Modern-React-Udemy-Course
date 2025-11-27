@@ -11,7 +11,7 @@ function App() {
 
   return (
     <div className="App">
-      { showModal && <Modal />}
+      { showModal && <Modal onClose={handleClose}/>}
       <h1>My Birthday Gifts</h1>
       <div className="cards">
         <button onClick={handleOpen} >Add a Gift</button>
