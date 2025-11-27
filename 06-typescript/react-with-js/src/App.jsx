@@ -1,18 +1,17 @@
-import { useState } from "react";
 import "./App.css";
 import Modal from "../components/Modal";
+import { useState } from "react";
 
 function App() {
+  const [showModal, setShowModal] = useState(false);
 
-    const [showModal, setShowModal] = useState(false);
-  
-    const handleOpen = () => setShowModal(true)
-    const handleClose = () => setShowModal(false)
+  const handleOpen = () => setShowModal(true)
+  const handleClose = () => setShowModal(false)
 
   return (
     <div className="App">
       { showModal && <Modal />}
-      <h1>My Birthday Gifts</h1>
+      <h1>My Birthday Gifts JS</h1>
       <div className="cards">
         <button onClick={handleOpen} >Add a Gift</button>
       </div>
