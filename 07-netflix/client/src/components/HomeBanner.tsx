@@ -3,7 +3,13 @@ import React from "react"
 const HomeBanner = (props) => {
   return (
     <div className="h-screen w-screen relative">
-      <img className="w-full h-full" src="https://assets.nflxext.com/ffe/siteui/vlv3/855ed6e2-d9f1-4afd-90da-96023ec747c3/a822ccf9-e1b7-4352-92c7-aa9cd34f8931/CA-en-20230828-popsignuptwoweeks-perspective_alpha_website_large.jpg" alt="" />
+      <img 
+				className="w-full h-full" 
+				src="https://assets.nflxext.com/ffe/siteui/vlv3/855ed6e2-d9f1-4afd-90da-96023ec747c3/a822ccf9-e1b7-4352-92c7-aa9cd34f8931/CA-en-20230828-popsignuptwoweeks-perspective_alpha_website_large.jpg" 
+				alt="home banner netflix" />
+				<div className="absolute h-full w-full bg-black/50  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
+
+				</div>
     </div>
   )
 };
