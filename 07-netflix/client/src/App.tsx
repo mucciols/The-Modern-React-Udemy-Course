@@ -1,13 +1,12 @@
 import './App.css'
-import HomeBanner from './components/HomeBanner'
-import NavBar from './components/NavBar'
+import HomePage from './pages/HomePage'
+
 
 function App() {
 
   return (
-    <div className='bg-indigo-400'>
-      <NavBar />
-      <HomeBanner />
+    <div >
+      <HomePage />      
     </div>
   )
 }
