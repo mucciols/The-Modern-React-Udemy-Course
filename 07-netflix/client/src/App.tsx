@@ -1,11 +1,11 @@
 import './App.css'
-import BrowsePage from './pages/BrowsePage'
+import WatchPage from './pages/WatchPage'
 
 function App() {
 
   return (
     <div >
-      <BrowsePage />   
+      <WatchPage />   
     </div>
   )
 }
