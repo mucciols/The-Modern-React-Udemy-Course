@@ -1,10 +1,11 @@
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { PlayIcon } from "@heroicons/react/24/solid";
 import type { Movie } from "../Types";
+import { useNavigate } from "react-router-dom";
 
-const  MovieCard = ({movie}: {movie: Movie} ) =>
-{
-  const {thumbnailUrl, genre, description, duration , title } = movie;
+const  MovieCard = ({movie}: {movie: Movie} ) => {
+  const {thumbnailUrl, id, genre, description, duration , title } = movie;
+  const navigate = useNavigate()
 
   return (
     <div
@@ -76,8 +77,11 @@ const  MovieCard = ({movie}: {movie: Movie} ) =>
           "
         >
           <div className="flex flex-row items-center gap-3">
-            <button
-              className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300"
+            <button 
+              className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300" 
+              onClick={() =>{
+                navigate(`/browse/watch/${id}`)
+              }}
             >
               <PlayIcon className="text-black w-4 lg:w-6" />
             </button>
