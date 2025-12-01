@@ -1,11 +1,10 @@
+import { Outlet } from 'react-router-dom'
 import './App.css'
-import WatchPage from './pages/WatchPage'
 
 function App() {
-
   return (
     <div >
-      <WatchPage />   
+      <Outlet />
     </div>
   )
 }
