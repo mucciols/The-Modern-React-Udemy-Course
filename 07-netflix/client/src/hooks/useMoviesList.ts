@@ -1,5 +1,5 @@
-import { error } from "console";
-import { act, useReducer } from "react"
+import { useEffect, useReducer } from "react"
+import axios from "axios";
 
 interface State {
   data: Movie[] | null;
@@ -17,7 +17,7 @@ interface Movie {
   duration: string;
 }
 
-enum ActionType  {
+enum ActionType {
   LOADING,
   SUCCESS,
   FAILED
@@ -61,7 +61,24 @@ const reducer = (_: State, action: Action) : State  => {
 }
 
 const useMoviesList = () => {
-  const [] = useReducer(reducer, initialState)
+  const [{data, loading, error}, dispatch] = useReducer(reducer, initialState)
+
+  const fetchMoviesList = async () =>  {
+    dispatch({ type: ActionType.LOADING })
+    try {
+      const response = await axios.get("http://localhost:8080/movies/list")
+      dispatch({ type: ActionType.SUCCESS, payload: response.data })
+    } catch(error) {
+      console.log(error);
+      dispatch({ type: ActionType.FAILED, payload: "Something went wrong" })
+    }
+  }
+
+  useEffect( () => {
+    fetchMoviesList();
+  } , [] )
+
+  return { data, loading, error }
 }
 
 export default useMoviesList
