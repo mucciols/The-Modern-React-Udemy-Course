@@ -1,5 +1,6 @@
 import { useEffect, useReducer } from "react"
 import axios from "axios";
+import type { Movie } from "../Types";
 
 interface State {
   data: Movie[] | null;
@@ -7,15 +8,15 @@ interface State {
   loading: boolean
 }
 
-interface Movie {
-  id: string;
-  title: string;
-  description: string;
-  thumbnailUrl: string;
-  videoUrl: string;
-  genre: string;
-  duration: string;
-}
+// interface Movie {
+//   id: string;
+//   title: string;
+//   description: string;
+//   thumbnailUrl: string;
+//   videoUrl: string;
+//   genre: string;
+//   duration: string;
+// }
 
 enum ActionType {
   LOADING,
