@@ -3,9 +3,10 @@ import { PlayIcon } from "@heroicons/react/24/solid";
 import type { Movie } from "../Types";
 import { useNavigate } from "react-router-dom";
 
-const  MovieCard = ({movie, lastElementRef}: {
+const  MovieCard = ({movie, lastElementRef, index}: {
   movie: Movie; 
   lastElementRef: ((node: HTMLDivElement) => void) | null; 
+  index: number;
 }) => {
 
 
@@ -13,6 +14,7 @@ const  MovieCard = ({movie, lastElementRef}: {
   const navigate = useNavigate()
 
   return (
+
     <div
       className="group bg-zinc-900 col-span relative h-[12vw] w-[24%]"    ref={lastElementRef}
     >

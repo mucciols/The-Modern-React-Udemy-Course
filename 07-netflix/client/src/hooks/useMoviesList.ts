@@ -58,7 +58,7 @@ const useMoviesList = (offset:number) => {
     dispatch({ type: ActionType.LOADING })
     try {
       const response = await axios.get(`http://localhost:8080/movies/list?offset=${offset}`)
-      const movieData = data ? [...data, response.data] : response.data;
+      const movieData = data ? [...data, ...response.data] : response.data;
       dispatch({ type: ActionType.SUCCESS, payload: movieData })
     } catch(error) {
       console.log(error);

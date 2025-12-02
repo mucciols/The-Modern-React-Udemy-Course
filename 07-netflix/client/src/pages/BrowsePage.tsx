@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import MovieList from "../components/MovieList";
 import useMoviesList from "../hooks/useMoviesList";
 import { useState, useRef, useCallback } from "react";
+import LoadingCards from "../components/LoadingCards";
 
 export default function BrowsePage() {
   const [offset, setOffset] = useState(12);
@@ -10,6 +11,7 @@ export default function BrowsePage() {
 
   const observer = useRef<null|IntersectionObserver>(null);
 
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const lastElementRef = useCallback((node: HTMLDivElement) => {
     if(loading) 
       return;
@@ -20,7 +22,7 @@ export default function BrowsePage() {
     observer.current = new IntersectionObserver((entries) => {
       if(entries[0].isIntersecting) {
         setOffset(offset + 12);
-        console.log('intercepting')
+        console.log('intercepting', offset)
       }
     })
 
@@ -32,9 +34,9 @@ export default function BrowsePage() {
       <NavBar />
       <BillBoard />
       <div className="pb-5 ">
-        {loading && <p>Loading...</p>}
         {error && <p>{error}</p>}
         {data && <MovieList movies={data} lastElementRef={lastElementRef} /> }
+        {loading ? <LoadingCards /> : null }
       </div>
     </div>
   )
