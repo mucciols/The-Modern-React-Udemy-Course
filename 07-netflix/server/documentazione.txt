@@ -1,0 +1,2 @@
+generazione db con prisma 
+    npx prisma db pull
