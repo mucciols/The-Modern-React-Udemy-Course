@@ -3,13 +3,18 @@ import { PlayIcon } from "@heroicons/react/24/solid";
 import type { Movie } from "../Types";
 import { useNavigate } from "react-router-dom";
 
-const  MovieCard = ({movie}: {movie: Movie} ) => {
+const  MovieCard = ({movie, lastElementRef}: {
+  movie: Movie; 
+  lastElementRef: ((node: HTMLDivElement) => void) | null; 
+}) => {
+
+
   const {thumbnailUrl, id, genre, description, duration , title } = movie;
   const navigate = useNavigate()
 
   return (
     <div
-      className="group bg-zinc-900 col-span relative h-[12vw] w-[24%]"    
+      className="group bg-zinc-900 col-span relative h-[12vw] w-[24%]"    ref={lastElementRef}
     >
       <img
         src={thumbnailUrl}

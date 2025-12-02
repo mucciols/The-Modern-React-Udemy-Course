@@ -10,6 +10,7 @@ app.get("/", (req, res) => {
 })
 
 app.get("/movies/list", (req, res) => {
+  console.log('lettura dei parametri da movies/list 1 lunghezza', movies.length);
   return res.send(movies);
 })
 

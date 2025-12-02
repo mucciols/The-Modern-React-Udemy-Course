@@ -8,16 +8,6 @@ interface State {
   loading: boolean
 }
 
-// interface Movie {
-//   id: string;
-//   title: string;
-//   description: string;
-//   thumbnailUrl: string;
-//   videoUrl: string;
-//   genre: string;
-//   duration: string;
-// }
-
 enum ActionType {
   LOADING,
   SUCCESS,
@@ -61,13 +51,13 @@ const reducer = (_: State, action: Action) : State  => {
 
 }
 
-const useMoviesList = () => {
+const useMoviesList = (offset:number) => {
   const [{data, loading, error}, dispatch] = useReducer(reducer, initialState)
 
   const fetchMoviesList = async () =>  {
     dispatch({ type: ActionType.LOADING })
     try {
-      const response = await axios.get("http://localhost:8080/movies/list")
+      const response = await axios.get(`http://localhost:8080/movies/list?offset=${offset}`)
       dispatch({ type: ActionType.SUCCESS, payload: response.data })
     } catch(error) {
       console.log(error);
