@@ -28,8 +28,7 @@ app.get("/movies/list", (req, res) => {
   const to = from + 12;
   const moviesSubset = [...movies].slice(from, to);
   
-    return res.json({ movies: moviesSubset, count: movies.length });
-  
+  return res.json({ movies: moviesSubset, count: movies.length });
 });
 
 app.get("/movie/:id", (req, res) => {
