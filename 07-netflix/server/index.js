@@ -10,21 +10,16 @@ app.get("/", (req, res) => {
 })
 
 app.get("/movies/list", (req, res) => {
-
   // console.log('lettura dei parametri da movies/list 1 lunghezza', movies.length + new Date());
   // console.log('lettura dei parametri da movies/list 2 offset', req.query.offset);
-
   const offset =  parseInt(req.query.offset) || 0;
   if(offset == 0) {
     return res.send(movies);
   }
   else {
     const result = movies.slice(0, offset);
-    // console.log('lettura dei parametri da movies/list 5 letti 1 tornati', result.length);
-    // console.log('lettura dei parametri da movies/list 5 letti 2 totali ', movies.length);
     return res.send(result);
   }
-    
 })
 
 app.get("/movie/:id", (req, res) => {
