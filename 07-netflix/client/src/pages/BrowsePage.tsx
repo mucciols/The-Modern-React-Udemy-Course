@@ -11,9 +11,12 @@ export default function BrowsePage() {
   const observer = useRef<null|IntersectionObserver>(null);
 
   const lastElementRef = useCallback((node: HTMLDivElement) => {
-    if(loading) return;
+    if(loading) 
+      return;
     
-    if(observer.current)   observer.current.disconnect();
+    if(observer.current)   
+      observer.current.disconnect();
+
     observer.current = new IntersectionObserver((entries) => {
       if(entries[0].isIntersecting) {
         setOffset(offset + 12);
