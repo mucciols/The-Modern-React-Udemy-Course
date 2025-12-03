@@ -56,7 +56,7 @@ const prisma = new PrismaClient({
 })
 
 const app = express();
-
+app.use(express.json())
 app.use(cors());
 
 // GET: tutti i film
@@ -70,35 +70,38 @@ app.get("/movies", async (req, res) => {
   }
 });
 
-app.get("/movies/list", async (req, res) => {
-  const offset = parseInt(req.query.offset);
-  let movies = await prisma.movie.findMany({
-      take: 12,
-      skip: offset
-  });
-  const totalMovies = await prisma.movie.count();
-  return res.json({ movies: movies, count: totalMovies });
-});
+// app.get("/movies/list", async (req, res) => {
+//   const offset = parseInt(req.query.offset);
+//   let movies = await prisma.movie.findMany({
+//       take: 12,
+//       skip: offset
+//   });
+//   const totalMovies = await prisma.movie.count();
+//   return res.json({ movies: movies, count: totalMovies });
+// });
 
-// GET: un solo film per ID
-app.get("/movie/:id", async (req, res) => {
-  const { id } = req.params;
+// // GET: un solo film per ID
+// app.get("/movie/:id", async (req, res) => {
+//   const { id } = req.params;
 
-  try {
-    const movie = await prisma.movie.findUnique({
-      where: { id: Number(id) },
-    });
+//   try {
+//     const movie = await prisma.movie.findUnique({
+//       where: { id: Number(id) },
+//     });
 
-    if (!movie) {
-      return res.status(404).json({ error: "Film non trovato" });
-    }
+//     if (!movie) {
+//       return res.status(404).json({ error: "Film non trovato" });
+//     }
 
-    res.json(movie);
-  } catch (err) {
-    console.error("Errore Prisma:", err);
-    res.status(500).json({ error: "Errore del server" });
-  }
-});
+//     res.json(movie);
+//   } catch (err) {
+//     console.error("Errore Prisma:", err);
+//     res.status(500).json({ error: "Errore del server" });
+//   }
+// });
+
+app.use("", require("./routes/movies"));
+app.use("/auth", require("./routes/auth"));
 
 // Start server
 app.listen(8080, () => console.log("Server avviato sulla porta 8080"));
