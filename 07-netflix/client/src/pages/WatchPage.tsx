@@ -28,7 +28,7 @@ export default function WatchPage() {
         src={videoUrl} 
         frameborder="0"
         allowFullScreen
-        allow="autoplay"
+        
         ></iframe>
     </div>
   )

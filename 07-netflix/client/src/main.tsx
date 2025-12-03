@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage.tsx'
 import PlansPage from './pages/PlantsPage.tsx'
 import BrowsePage from './pages/BrowsePage.tsx'
 import WatchPage from './pages/WatchPage.tsx'
+import MovieWithPrisma from './pages/MovieWithPrisma.tsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
       <Route path='/plans' element= {<PlansPage />}/>
       <Route path='/browse' element= {<BrowsePage />}/>
       <Route path='/browse/watch/:id' element= {<WatchPage />}/>
+      <Route path='/moviewithprisma' element= {<MovieWithPrisma />}/>
     </Route>
   )
 ) 
