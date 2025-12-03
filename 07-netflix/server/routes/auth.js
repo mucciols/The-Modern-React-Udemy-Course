@@ -108,4 +108,29 @@ router.post("/login", async (req, res) =>{
 
 })
 
+router.get("/me" , async (req, res) => {
+  const bearerToken = req.headers.authorization;
+  if(!bearerToken) 
+    return res.send(null);
+
+  const jwt = bearerToken.split("Bearer ")[1]
+  if(!jwt)
+    return res.send(null);
+
+  const payload = await JWT.verify(jwt, process.env.JSON_WEB_TOKEN_SECRET);
+
+  const user = await prisma.user.findUnique({
+    where : {
+      email: payload.email
+    },
+    select:{
+      id: true,
+      email: true,
+      username: true
+    }
+  })
+
+  return res.json(user)
+})
+
 module.exports = router;
