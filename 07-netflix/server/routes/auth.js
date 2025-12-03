@@ -1,9 +1,12 @@
 
 const { PrismaClient } = require("@prisma/client");
 const { PrismaMariaDb } = require("@prisma/adapter-mariadb");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 const router = require("express").Router();
 const { check, validationResult } = require("express-validator");
+const JWT = require("jsonwebtoken");
+require('dotenv').config();
+
 
 const adapter = new PrismaMariaDb({
   host:     process.env.MYSQL_HOST || 'localhost',
@@ -54,10 +57,18 @@ router.post("/signup", [
       username,
       password: hashPassword,
     },
+    select: {
+      id: true,
+      username: true,
+      email: true
+    }
   });
 
+  const token = await JWT.sign(newUser, process.env.JSON_WEB_TOKEN_SECRET, { expiresIn: 3600000 })
+
   res.json({
-    user: newUser
+    user: newUser,
+    token
   });
 });
 
