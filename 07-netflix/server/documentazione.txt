@@ -1,3 +1,4 @@
 generazione db con prisma 
-    genera db               : npx prisma db pull
+    genera db               : npx prisma generate
+                              npx prisma db pull
     apertura prisma studio  : npx prisma studio
