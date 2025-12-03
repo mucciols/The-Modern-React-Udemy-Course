@@ -35,10 +35,9 @@
 // })
 
 
-
+//const movies = require("./movies.json");
 const cors = require("cors")
 const express = require("express");
-const movies = require("./movies.json");
 const { PrismaClient } = require("@prisma/client");
 const { PrismaMariaDb } = require("@prisma/adapter-mariadb");
 
@@ -72,15 +71,10 @@ app.get("/movies", async (req, res) => {
 });
 
 app.get("/movies/list", async (req, res) => {
-  // const offset = parseInt(req.query.offset);
-  // const from = offset;
-  // const to = from + 12;
-  // const moviesSubset = [...movies].slice(from, to);
-  // return res.json({ movies: moviesSubset, count: movies.length });
-
   const offset = parseInt(req.query.offset);
   let movies = await prisma.movie.findMany({
-      take: offset
+      take: 12,
+      skip: offset
   });
   const totalMovies = await prisma.movie.count();
   return res.json({ movies: movies, count: totalMovies });
