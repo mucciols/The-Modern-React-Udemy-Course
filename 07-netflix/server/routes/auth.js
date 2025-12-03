@@ -13,7 +13,8 @@ router.post("/signup", [
       errors: errors.array()
     })
   }
-  console.log(errors);
+  
+  res.send("VALID");
 
   const{ email, password, username } = req.body;
 });
