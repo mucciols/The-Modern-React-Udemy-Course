@@ -48,8 +48,17 @@ router.post("/signup", [
   }
   
   const hashPassword = await bcrypt.hash(password, 10);
-  res.send(hashPassword);
-  
+  const newUser = await prisma.user.create({
+    data: {
+      email,
+      username,
+      password: hashPassword,
+    },
+  });
+
+  res.json({
+    user: newUser
+  });
 });
 
 module.exports = router;
