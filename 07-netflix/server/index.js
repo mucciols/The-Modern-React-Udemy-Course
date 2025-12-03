@@ -38,11 +38,9 @@
 
 const cors = require("cors")
 const express = require("express");
-// const movies = require("./movies.json");
-
+const movies = require("./movies.json");
 const { PrismaClient } = require("@prisma/client");
 const { PrismaMariaDb } = require("@prisma/adapter-mariadb");
-
 
 const adapter = new PrismaMariaDb({
   host:     process.env.MYSQL_HOST || 'localhost',
@@ -55,7 +53,6 @@ const adapter = new PrismaMariaDb({
 const prisma = new PrismaClient({
   log: ['query', 'info', 'warn', 'error'],
   errorFormat: 'pretty',
-
   adapter: adapter
 })
 
@@ -79,14 +76,15 @@ app.get("/movies/list", async (req, res) => {
   // const from = offset;
   // const to = from + 12;
   // const moviesSubset = [...movies].slice(from, to);
+  // return res.json({ movies: moviesSubset, count: movies.length });
 
-  let movies = await prisma.movie.findMany();
-
-  console.log(movies);
-  
-  return res.json({ movies: movies, count: movies.length });
+  const offset = parseInt(req.query.offset);
+  let movies = await prisma.movie.findMany({
+      take: offset
+  });
+  const totalMovies = await prisma.movie.count();
+  return res.json({ movies: movies, count: totalMovies });
 });
-
 
 // GET: un solo film per ID
 app.get("/movie/:id", async (req, res) => {

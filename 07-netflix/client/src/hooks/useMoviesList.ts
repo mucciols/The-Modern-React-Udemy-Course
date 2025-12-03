@@ -25,7 +25,6 @@ const initialState: State = {
 }
 
 const reducer = (state: State, action: Action) : State  => {
-
   switch(action.type) {
     case ActionType.LOADING:
       return {
@@ -48,7 +47,6 @@ const reducer = (state: State, action: Action) : State  => {
     default:
       return initialState;
   }
-
 }
 
 const useMoviesList = (offset:number) => {

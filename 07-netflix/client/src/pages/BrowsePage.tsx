@@ -20,6 +20,7 @@ export default function BrowsePage() {
       observer.current.disconnect();
 
     observer.current = new IntersectionObserver((entries) => {
+
       if(entries[0].isIntersecting) {
         setOffset(offset + 12);
         console.log('intercepting', offset)

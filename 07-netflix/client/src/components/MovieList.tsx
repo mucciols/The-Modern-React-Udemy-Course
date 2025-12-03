@@ -8,9 +8,7 @@ export default function MovieList({
   movies:Movie[]; 
   lastElementRef : (node: HTMLDivElement) => void
 }) {
-
-  console.log('chiamata movie list')
-
+  
   return(
     <div className="px-12 mt-4 space-y-8">
       <div>
