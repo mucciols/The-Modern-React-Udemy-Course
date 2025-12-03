@@ -74,13 +74,15 @@ app.get("/movies", async (req, res) => {
   }
 });
 
-app.get("/movies/list", (req, res) => {
+app.get("/movies/list", async (req, res) => {
   // const offset = parseInt(req.query.offset);
   // const from = offset;
   // const to = from + 12;
   // const moviesSubset = [...movies].slice(from, to);
 
-  let movies = prisma.movie.findMany();
+  let movies = await prisma.movie.findMany();
+
+  console.log(movies);
   
   return res.json({ movies: movies, count: movies.length });
 });
