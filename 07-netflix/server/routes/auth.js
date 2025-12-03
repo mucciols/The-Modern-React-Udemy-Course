@@ -117,7 +117,12 @@ router.get("/me" , async (req, res) => {
   if(!jwt)
     return res.send(null);
 
-  const payload = await JWT.verify(jwt, process.env.JSON_WEB_TOKEN_SECRET);
+  let payload;
+  try {
+    payload = await JWT.verify(jwt, process.env.JSON_WEB_TOKEN_SECRET);  
+  } catch (error) {
+    return res.send(null);
+  }
 
   const user = await prisma.user.findUnique({
     where : {
