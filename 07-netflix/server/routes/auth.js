@@ -66,10 +66,43 @@ router.post("/signup", [
 
   const token = await JWT.sign(newUser, process.env.JSON_WEB_TOKEN_SECRET, { expiresIn: 3600000 })
 
-  res.json({
+  return res.json({
     user: newUser,
     token
   });
 });
+
+router.post("/login", async (req, res) =>{
+  const { email, password } = req.body;
+
+  const user = await prisma.user.findUnique({
+       where: { email: email },
+  })
+
+  if(!user) {
+    return res.status(400).json({
+      errors: [{msg: "Invalid credentials"}],
+    })
+  }
+
+  const isMatch = bcrypt.compare(password, user.password);
+  if(!isMatch) {
+    return res.status(400).json({
+      errors: [{msg: "Invalid credentials"}],
+    })
+  }
+
+  const token = await JWT.sign({
+    id: user.id,
+    email: user.email,
+    username: user.username
+  }, process.env.JSON_WEB_TOKEN_SECRET, { expiresIn: 3600000 })
+  
+  return res.json({
+    user: user,
+    token
+  });
+
+})
 
 module.exports = router;
