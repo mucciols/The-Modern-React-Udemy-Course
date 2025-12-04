@@ -1,6 +1,13 @@
 import { useState } from "react";
 import Input from "../components/Input";
 import NavBar from "../components/NavBar";
+import { useForm, SubmitHandler } from "react-hook-form"
+
+type Inputs = {
+  email: string;
+  name: string;
+  password: string;
+}
 
 enum Variant {
   SIGN_UP,
@@ -8,8 +15,13 @@ enum Variant {
 }
 
 export default function LoginPage() {
+  const { register , handleSubmit , formState:{ errors }, watch} = useForm<Inputs>()
 
   const [variant, setVariant] = useState(Variant.LOG_IN)
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data)
+  }
 
   return(
     <div className="relative bg-black/50 h-screen w-screen ">
