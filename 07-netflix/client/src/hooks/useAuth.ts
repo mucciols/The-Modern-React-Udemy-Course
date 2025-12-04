@@ -1,17 +1,27 @@
-import axios from 'axios'
-import Cookie from "universal-cookie"
+import axios from "axios";
+import Cookie from "universal-cookie";
+import { useDispatch } from "react-redux"
+import { setUser } from "../features/userSlice"
 
 const cookie = new Cookie();
 
 const useAuth = () => {
+
+    const dispatch = useDispatch();
 
     const login = async ({ email, password }:{email: string; password:string}) => {
       const response = await axios.post("http://localhost:8080/auth/login", { 
         email, 
         password
       })
-      const { token } = response.data;
+      const { token, user } = response.data;
       cookie.set("session_cookie", token);
+      dispatch(
+        setUser({
+          email: user.email,
+          username: user.username
+        })
+      )
       return response.data;
     }
 
@@ -21,8 +31,14 @@ const useAuth = () => {
         password, 
         username
       })
-      const { token } = response.data;
+      const { token, user } = response.data;
       cookie.set("session_cookie", token);
+      dispatch(
+        setUser({
+          email: user.email,
+          username: user.username
+        })
+      )
       return response.data;
     }
 

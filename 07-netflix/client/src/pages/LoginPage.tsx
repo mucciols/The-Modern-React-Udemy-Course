@@ -34,6 +34,9 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Inputss> = async ({ password, email, name }) => {
+    
+    console.log("prima della login")
+    
     try {
       if(variant=== Variant.SIGN_UP) {
         await signup({
@@ -42,10 +45,12 @@ export default function LoginPage() {
           username: name
         });
       } else {
+        console.log("prima della login")
         await login({
           email,
           password,
         });
+        console.log("dopo della login")
       }
       setAuthError("");
       navigate("/browse");
