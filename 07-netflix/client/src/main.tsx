@@ -1,4 +1,3 @@
-import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from "react-redux";
 import { store } from "./app/store"
@@ -10,7 +9,8 @@ import LoginPage from './pages/LoginPage.tsx';
 import PlansPage from './pages/PlantsPage.tsx';
 import BrowsePage from './pages/BrowsePage.tsx';
 import WatchPage from './pages/WatchPage.tsx';
-import MovieWithPrisma from './pages/MovieWithPrisma.tsx';
+// import MovieWithPrisma from './pages/MovieWithPrisma.tsx';
+import PrivateRoutes from './utils/PrivateRoutes';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,8 +19,12 @@ const router = createBrowserRouter(
       <Route path='/login' element= { <LoginPage />}/>
       <Route path='/plans' element= {<PlansPage />}/>
       <Route path='/browse' element= {<BrowsePage />}/>
-      <Route path='/browse/watch/:id' element= {<WatchPage />}/>
-      <Route path='/moviewithprisma' element= {<MovieWithPrisma />}/>
+
+      <Route path="/browse" element={ <PrivateRoutes /> }>
+        <Route path='/browse/watch/:id' element= {<WatchPage />}/>
+        {/* <Route path='/moviewithprisma' element= {<MovieWithPrisma />}/> */}
+      </Route>
+      
     </Route>
   )
 ) 
