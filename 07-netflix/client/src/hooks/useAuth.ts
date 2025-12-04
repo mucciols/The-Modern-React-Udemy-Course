@@ -52,7 +52,8 @@ const useAuth = () => {
             ...(sessionToken) ? {Authorization: `Bearer ${sessionToken}`} : null
           } 
         })
-        const { user } = response.data;
+
+        const user = response.data;
         
         if(!user){
           return dispatch(clearUser())
@@ -65,7 +66,7 @@ const useAuth = () => {
             })
         )
       } catch (error) {
-        console.log(error);
+        return dispatch(clearUser());
       }
     };
 
