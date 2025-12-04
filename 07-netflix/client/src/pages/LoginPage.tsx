@@ -3,6 +3,7 @@ import Input from "../components/Input";
 import NavBar from "../components/NavBar";
 import { useForm, type FieldErrors, type SubmitHandler, type UseFormRegister } from "react-hook-form"
 import useAuth from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export type Inputss = {
   email: string;
@@ -28,8 +29,10 @@ export const AuthFormContext = createContext<AuthFormContextType>({
 export default function LoginPage() {
   const { register , handleSubmit , formState:{ errors }, getValues} = useForm<Inputss>()
   const [variant, setVariant] = useState(Variant.LOG_IN);
-  const [authError, setAuthError] = useState("")
-  const {signup, login} = useAuth()
+  const [authError, setAuthError] = useState("");
+  const {signup, login} = useAuth();
+  const navigate = useNavigate();
+
   const onSubmit: SubmitHandler<Inputss> = async ({ password, email, name }) => {
     try {
       if(variant=== Variant.SIGN_UP) {
@@ -44,7 +47,8 @@ export default function LoginPage() {
           password,
         });
       }
-      setAuthError('');
+      setAuthError("");
+      navigate("/browse");
     } catch (error: any) {
       setAuthError(error.response.data.errors[0].msg)
     }
