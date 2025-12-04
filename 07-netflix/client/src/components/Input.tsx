@@ -6,11 +6,12 @@ interface InputProps {
   label: string;
   type?: string;
   name: keyof Inputss;
+  validate?: (text:string) => string | true;
 }
 
-export default function Input({ id, label, type, name } : InputProps) {
+export default function Input({ id, label, type, name, validate } : InputProps) {
 
-  const { register } = useContext(AuthFormContext)
+  const { register, errors } = useContext(AuthFormContext)
 
   if(!register)
     return null;
@@ -22,7 +23,12 @@ export default function Input({ id, label, type, name } : InputProps) {
         id={id} 
         type={type} 
         className="block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-zinc-700" 
-        {...register(name)}
+        {...register(name, {
+          required: true,
+          validate
+        })
+          
+        }
       />
         
       <label
@@ -46,6 +52,8 @@ export default function Input({ id, label, type, name } : InputProps) {
       >
         {label}
       </label>
+      {errors[name]?.type === "required" && <p className="text-red-600">This field is required</p>}
+      {errors[name]?.type === "validate" && <p className="text-red-600">{errors[name]?.message}</p>}
     </div>
   )
 }

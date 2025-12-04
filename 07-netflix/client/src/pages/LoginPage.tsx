@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import Input from "../components/Input";
 import NavBar from "../components/NavBar";
-import { useForm, type SubmitHandler, type UseFormRegister } from "react-hook-form"
+import { useForm, type FieldErrors, type SubmitHandler, type UseFormRegister } from "react-hook-form"
 
 export type Inputss = {
   email: string;
@@ -15,18 +15,20 @@ export enum Variant {
 }
 
 interface AuthFormContextType {
-  register: UseFormRegister<Inputss> |  null
+  register: UseFormRegister<Inputss> |  null;
+  errors: FieldErrors<Inputss>
 }
 
 export const AuthFormContext = createContext<AuthFormContextType>({
-  register: null
+  register: null,
+  errors: {}
 });
 
 export default function LoginPage() {
-  const { register , handleSubmit , formState:{ errors }, watch} = useForm<Inputss>()
+  const { register , handleSubmit , formState:{ errors }, getValues} = useForm<Inputss>()
 
   const [variant, setVariant] = useState(Variant.LOG_IN)
-
+  console.log(errors)
   const onSubmit: SubmitHandler<Inputss> = (data) => {
     console.log(data)
   }
@@ -38,14 +40,27 @@ export default function LoginPage() {
         <div className="bg-black bg-opacity-70 p-16 selc-center mt-2 w-full max-w-md rounded-md">
           <h2 className="text-white text-4xl mb-8 font-semibold">Sign in</h2>
           <AuthFormContext.Provider value={{
-            register
+            register,
+            errors
           }}>
             <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
               {variant === Variant.SIGN_UP &&  (
                   <Input id="username" type="text" label="Username" name="name" />
               )}
               <Input id="email" type="email" label="Email Address" name="email" />
-              <Input id="password" type="password" label="Password" name="password" />
+              <Input 
+                id="password" 
+                type="password" 
+                label="Password" 
+                name="password" 
+                validate={variant === Variant.SIGN_UP ? () => {
+                    const password = getValues("password")
+                    if(password.length < 8) {
+                      return "Pasword must be greather than 8"
+                    }
+                    return true;
+                } : undefined }
+              />
               <input type="submit" 
                 className="bg-red-400 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700" />
             </form>
