@@ -1,7 +1,16 @@
-export default function Input() {
+interface InputProps {
+  id: string;
+  label: string;
+  type?: string;
+}
+
+export default function Input({ id, label, type } : InputProps) {
   return (
     <div className="relative">
-      <input className="block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-zinc-700" />
+      <input 
+        id={id} 
+        type={type} 
+        className="block rounded-md px-6 pt-6 pb-1 w-full text-md text-white bg-zinc-700" />
       
       <label
         className="absolute
@@ -22,7 +31,7 @@ export default function Input() {
         peer-focus:-translate-y-3
         "
       >
-        Email
+        {label}
       </label>
     </div>
   )
